@@ -2,7 +2,7 @@
 (require racket/gui/base)
 
 (provide registro-menor-frame)
-;(require "GUINuevaFruta.rkt")
+(require "../controllers/GestionMenor.rtk")
 ;(require "GestionarGalerias.rkt")
 ;(require "Recomendaciones.rkt")
 
@@ -90,7 +90,8 @@
                         [label "REGISTRAR"]
                         [callback (lambda (button event)
                                     (send msgRes set-label (
-                                                           obtieneDatosMenor (send txtRegistroCivil get-value)
+                                                           obtieneDatosMenor 
+                                                           (send txtRegistroCivil get-value)
                                                             (send txtNombresApellidos get-value)
                                                             (send txtFechaNacimiento get-value)
                                                             (send comboGenero get-value)
@@ -99,11 +100,36 @@
                                                             (send txtDireccionContacto get-value))))]
                         ))
 
-;(define btnAgregarFruta(new button%
-;                       [parent panelBotones]
-;                       [enabled #t]
-;                       [label "LIMPIAR CAMPOS"]
-;                       ))
+(define btnLimpiarCampos(new button%
+                        [parent panelBotones]
+                        [enabled #t]
+                        [label "LIMPIAR CAMPOS"]
+                        [callback (lambda (button event)
+                                    (limpiarCampos txtRegistroCivil
+                        txtNombresApellidos
+                        txtFechaNacimiento
+                        comboGenero
+                        txtNombreContacto
+                        txtTelefonoContacto
+                        txtDireccionContacto))]
+                      ))  
 
+(define (limpiarCampos
+         txtRegistroCivil
+         txtNombresApellidos
+         txtFechaNacimiento
+         comboGenero
+         txtNombreContacto
+         txtTelefonoContacto
+         txtDireccionContacto)
+         (cond
+            [(not (eqv? txtRegistroCivil "")) (send txtRegistroCivil set-value "")]
+            [(not (eqv? txtNombresApellidos "")) (send txtNombresApellidos set-value "")]
+            [(not (eqv? txtFechaNacimiento "")) (send txtFechaNacimiento set-value "")]
+            [(not (eqv? txtNombreContacto "")) (send txtNombreContacto set-value "")]
+            [(not (eqv? txtTelefonoContacto "")) (send txtTelefonoContacto set-value "")]
+            [(not (eqv? txtDireccionContacto "")) (send txtDireccionContacto set-value "")]
+            [(not (eqv? comboGenero "")) (send comboGenero set-value "")]
+            ))
 
 (send registro-menor-frame show #t)

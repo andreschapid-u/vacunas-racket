@@ -1,0 +1,83 @@
+#lang racket
+(require racket/gui/base)
+(require "../Conexion.rtk")
+(require db)
+
+(provide obtieneDatosMenor)
+
+;Insertar datos a la galeria
+
+#| 1. Obtiene el id de la Galeria
+   2. Obtiene el id de la fruta
+   3. Insertarmos los datos obtenidos a la Tabla DATOSGAL. |#
+
+(define (obtieneDatosMenor 
+            registroCivil 
+            nombresApellidos 
+            fechaNacimiento 
+            genero 
+            nombreContacto 
+            telefonoContacto 
+            direccionContacto 
+            )
+  (verificar_datos conn  
+  ;(query-exec conn insertarMenor 
+                        registroCivil 
+                        nombresApellidos 
+                        fechaNacimiento 
+                        nombreContacto 
+                        telefonoContacto 
+                        direccionContacto
+                        genero
+                         ))
+
+
+
+;   INSERTA LOS DATOS DEL MENOR EN LA BASE DE DATOS
+(define insertarMenor (
+    prepare conn "INSERT INTO `paciente`(`codRegistroCivil`, `NombreApellidos`, `fechaNacimiento`, `NombreContacto`, `telefonoContacto`, `direccion`, `genero`) VALUES (?,?,?,?,?,?,?)"))
+
+
+
+(define (verificar_datos conn registroCivil nombresApellidos fechaNacimiento 
+                        nombreContacto telefonoContacto direccionContacto genero)
+  (cond
+    [(eqv? registroCivil "") "Campo Registro Civil vacio"]
+    [(eqv? nombresApellidos "") "Campo Nombres y Apellidos vacio"]
+    [(eqv? fechaNacimiento "") "Campo Fecha Nacimiento vacio"]
+    [(eqv? nombreContacto "") "Campo Nombre (Padre/Madre) vacio"]
+    [(eqv? telefonoContacto "") "Campo Telefono Contacto vacio"]
+    [(eqv? direccionContacto "") "Campo Dirección Contacto vacio"]
+    [(eqv? genero "") "Campo Género vacio"]
+    [(cond
+       [(not (equal? (query-maybe-row conn verificarRegistroCivil registroCivil) #f))  "El Registro Civil ya existe!"]
+       [else    (query-exec conn insertarMenor 
+                        registroCivil 
+                        nombresApellidos 
+                        fechaNacimiento 
+                        nombreContacto 
+                        telefonoContacto 
+                        direccionContacto
+                        genero ) "Menor registrado!"]
+       )]))
+
+
+;   VERIFICAR SI EL REGISTRO CIVIL YA EXISTE
+(define verificarRegistroCivil (
+    prepare conn "SELECT * FROM `paciente` WHERE `codRegistroCivil` = ?"))
+
+
+;consulta para obtener el id de la galeria
+;(define galeriaIdByName (prepare conn "SELECT gal_id FROM GALERIAS WHERE gal_nombre = ?"))
+;(query-value conn galeriaIdByName "Bolivar")
+
+;consulta para obtener el id de la fruta
+;(define frutaIdByName (prepare conn "SELECT fru_id FROM FRUTAS WHERE fru_nombre = ?"))
+;(query-value conn frutaIdByName "Banano")
+
+;insertar datos en la tabla DATOSGAL
+;(define insertarDATOSGAL (prepare conn "INSERT INTO DATOSGAL(gal_id,fru_id,dat_ingresa,dat_desperdicia) VALUES(?,?,?,?)"))
+
+
+
+
