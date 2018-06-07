@@ -18,8 +18,8 @@
             genero 
             nombreContacto 
             telefonoContacto 
-            direccionContacto 
-            )
+            direccionContacto) 
+            
   (verificar_datos conn  
   ;(query-exec conn insertarMenor 
                         registroCivil 
@@ -28,14 +28,14 @@
                         nombreContacto 
                         telefonoContacto 
                         direccionContacto
-                        genero
-                         ))
+                        genero))
+                         
 
 
 
 ;   INSERTA LOS DATOS DEL MENOR EN LA BASE DE DATOS
 (define insertarMenor (
-    prepare conn "INSERT INTO `paciente`(`codRegistroCivil`, `NombreApellidos`, `fechaNacimiento`, `NombreContacto`, `telefonoContacto`, `direccion`, `genero`) VALUES (?,?,?,?,?,?,?)"))
+                       prepare conn "INSERT INTO `paciente`(`codRegistroCivil`, `NombreApellidos`, `fechaNacimiento`, `NombreContacto`, `telefonoContacto`, `direccion`, `genero`) VALUES (?,?,?,?,?,?,?)"))
 
 
 
@@ -58,13 +58,13 @@
                         nombreContacto 
                         telefonoContacto 
                         direccionContacto
-                        genero ) "Menor registrado!"]
-       )]))
+                        genero ) "Menor registrado!"])]))
+       
 
 
 ;   VERIFICAR SI EL REGISTRO CIVIL YA EXISTE
 (define verificarRegistroCivil (
-    prepare conn "SELECT * FROM `paciente` WHERE `codRegistroCivil` = ?"))
+                                prepare conn "SELECT * FROM `paciente` WHERE `codRegistroCivil` = ?"))
 
 
 ;consulta para obtener el id de la galeria
