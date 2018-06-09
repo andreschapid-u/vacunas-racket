@@ -1,0 +1,69 @@
+#lang racket
+(require racket/gui/base)
+
+(define consultar-menor-frame
+  (new frame%
+    (label "Consulta Menor - VACUNAS RACKET")
+    (width 600)
+    (height 400)))
+
+(define grupoMenor (new group-box-panel%
+                     (label "Datos del menor")
+                     (vert-margin 5)
+                     (horiz-margin 50)
+                     (min-height 50)
+                     (parent consultar-menor-frame)))
+
+(define grupoCitas (new group-box-panel%
+                     (label "")
+                     (vert-margin 5)
+                     (horiz-margin 50)
+                     (parent consultar-menor-frame)))
+
+(define txtRegistroCivil (new text-field%
+                          (parent grupoMenor)
+                          (horiz-margin 50)
+                          (min-height 10)
+                          (min-width 150)
+                          (enabled #f)
+                          (label "Registro Civil")))
+
+(define txtNombresApellidos (new text-field%
+                             (parent grupoMenor)
+                             (horiz-margin 50)
+                             (min-height 10)
+                             (min-width 150)
+                             (enabled #f)
+                             (label "Nombres y Apellidos")))
+
+(define txtFechaNaciminto (new text-field%
+                             (parent grupoMenor)
+                             (horiz-margin 50)
+                             (min-height 10)
+                             (min-width 150)
+                             (enabled #f)
+                             (label "Fecha nacimiento")))
+
+(define txtGenero (new text-field%
+                             (parent grupoMenor)
+                             (horiz-margin 50)
+                             (min-height 10)
+                             (min-width 150)
+                             (enabled #f)
+                             (label "Género")))                             
+
+(define tabla-citas (new list-box%
+                     (parent grupoCitas)
+                     (label "CITAS")
+                     [choices (list)]
+                     [style (list 'extended 'column-headers 'vertical-label)]
+                     (columns (list "Fecha" "Etapa"))))
+
+(define btnAtras (new button%
+                        (parent consultar-menor-frame)
+                        (enabled #t)
+                        (label "CERRAR")
+                        (callback (lambda (button event)
+                                    (send  consultar-menor-frame show #f)))))                  
+
+(send consultar-menor-frame show #t )                

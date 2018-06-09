@@ -35,7 +35,7 @@
 
 ;   INSERTA LOS DATOS DEL MENOR EN LA BASE DE DATOS
 (define insertarMenor (
-                       prepare conn "INSERT INTO `paciente`(`codRegistroCivil`, `NombreApellidos`, `fechaNacimiento`, `NombreContacto`, `telefonoContacto`, `direccion`, `genero`) VALUES (?,?,?,?,?,?,?)"))
+                       prepare conn "INSERT INTO `paciente`(`idRegistroCivil`, `NombresApellidos`, `fechaNacimiento`, `NombreContacto`, `telefonoContacto`, `direccion`, `genero`) VALUES (?,?,?,?,?,?,?)"))
 
 
 
@@ -59,25 +59,13 @@
                         telefonoContacto 
                         direccionContacto
                         genero ) "Menor registrado!"])]))
-       
-
-
+                         
 ;   VERIFICAR SI EL REGISTRO CIVIL YA EXISTE
-(define verificarRegistroCivil (
-                                prepare conn "SELECT * FROM `paciente` WHERE `codRegistroCivil` = ?"))
+(define verificarRegistroCivil (prepare conn "SELECT * FROM `paciente` WHERE `idRegistroCivil` = ?"))
 
+; (define consultarMenor (prepare conn "SELECT * FROM `paciente` WHERE `idRegistroCivil` = ?"))
 
-;consulta para obtener el id de la galeria
-;(define galeriaIdByName (prepare conn "SELECT gal_id FROM GALERIAS WHERE gal_nombre = ?"))
-;(query-value conn galeriaIdByName "Bolivar")
-
-;consulta para obtener el id de la fruta
-;(define frutaIdByName (prepare conn "SELECT fru_id FROM FRUTAS WHERE fru_nombre = ?"))
-;(query-value conn frutaIdByName "Banano")
-
-;insertar datos en la tabla DATOSGAL
-;(define insertarDATOSGAL (prepare conn "INSERT INTO DATOSGAL(gal_id,fru_id,dat_ingresa,dat_desperdicia) VALUES(?,?,?,?)"))
-
-
+; (query-rows conn "Select * from paciente")
+; (query-rows conn "Select * from paciente")
 
 

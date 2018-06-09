@@ -1,8 +1,9 @@
 #lang racket
 (require racket/gui/base)
 
-(provide registro-menor-frame)
+(provide mostrarRegistrarMenor)
 (require "../controllers/GestionMenor.rtk")
+(require "../utilidades/CalcularCalendarioDeCitas.rkt")
 ;(require "GestionarGalerias.rkt")
 ;(require "Recomendaciones.rkt")
 
@@ -26,34 +27,43 @@
                       (parent registro-menor-frame)))
                 
 ;Campos del menor
-(define txtRegistroCivil (new text-field%
+(define txtRegistroCivil2 (new text-field%
                               (parent grupoMenor)
                               (horiz-margin 50)
                               (min-height 10)
                               (min-width 150)
-                              (label "Registro Civil")))
+                              (label "Registro Civil\t\t\t")))
                               
 (define txtNombresApellidos (new text-field%
                               (parent grupoMenor)
                               (horiz-margin 50)
                               (min-height 10)
                               (min-width 150)
-                              (label "Nombres y Apellidos")))
+                              (label "Nombres y Apellidos\t")))
                               
 (define txtFechaNacimiento (new text-field%
                               (parent grupoMenor)
                               (horiz-margin 50)
                               (min-height 10)
                               (min-width 150)
-                              (label "Fecha Nacimiento")))
+                              (label "Fecha Nacimiento\t")))
+
+(define radioGenero (new radio-box%
+                      (parent grupoMenor)
+                      (horiz-margin 50)
+                      (min-height 10)
+                      (min-width 150)
+                      (label "Género\t\t\t\t\t\t\t\t\t")
+                      (choices '("Masculino" "Femenino"))
+                      (style '(horizontal))))                             
                               
-(define comboGenero (new combo-field%
-                         (choices '("M" "F"))
-                         (label "Género")
-                         (init-value "")   
-                         (horiz-margin 50)
-                         (min-height 10)(min-width 150)
-                         (parent grupoMenor)))
+; (define comboGenero (new combo-field%
+;                          (choices '("M" "F"))
+;                          (label "Género")
+;                          (init-value "")   
+;                          (horiz-margin 50)
+;                          (min-height 10)(min-width 150)
+;                          (parent grupoMenor)))
                          
 
 ;Campos del Contato
@@ -68,13 +78,13 @@
                                (horiz-margin 50)
                                (min-height 10)
                                (min-width 150)
-                               (label "Telefono Contacto")))
+                               (label "Telefono Contacto\t")))
 (define txtDireccionContacto (new text-field%
                                (parent grupoContacto)
                                (horiz-margin 50)
                                (min-height 10)
                                (min-width 150)
-                               (label "Dirección Contacto")))
+                               (label "Dirección Contacto\t")))
 ;Mensaje
 (define msgRes (new message% (parent registro-menor-frame)(label "")(min-height 1)(min-width 400)))
 
@@ -91,10 +101,10 @@
                         (callback (lambda (button event)
                                     (send msgRes set-label (
                                                             obtieneDatosMenor 
-                                                            (send txtRegistroCivil get-value)
+                                                            (send txtRegistroCivil2 get-value)
                                                             (send txtNombresApellidos get-value)
                                                             (send txtFechaNacimiento get-value)
-                                                            (send comboGenero get-value)
+                                                            (send radioGenero get-item-label (send radioGenero get-selection))
                                                             (send txtNombreContacto get-value)
                                                             (send txtTelefonoContacto get-value)
                                                             (send txtDireccionContacto get-value)))))))
@@ -105,31 +115,31 @@
                          (enabled #t)
                          (label "LIMPIAR CAMPOS")
                          (callback (lambda (button event)
-                                     (limpiarCampos txtRegistroCivil
+                                     (limpiarCampos txtRegistroCivil2
                                       txtNombresApellidos
                                       txtFechaNacimiento
-                                      comboGenero
                                       txtNombreContacto
                                       txtTelefonoContacto
                                       txtDireccionContacto)))))
                         
 
 (define (limpiarCampos
-         txtRegistroCivil
+         txtRegistroCivil2
          txtNombresApellidos
          txtFechaNacimiento
-         comboGenero
          txtNombreContacto
          txtTelefonoContacto
          txtDireccionContacto)
-        (cond
-           ((not (eqv? txtRegistroCivil "")) (send txtRegistroCivil set-value ""))
-           ((not (eqv? txtNombresApellidos "")) (send txtNombresApellidos set-value ""))
-           ((not (eqv? txtFechaNacimiento "")) (send txtFechaNacimiento set-value ""))
-           ((not (eqv? txtNombreContacto "")) (send txtNombreContacto set-value ""))
-           ((not (eqv? txtTelefonoContacto "")) (send txtTelefonoContacto set-value ""))
-           ((not (eqv? txtDireccionContacto "")) (send txtDireccionContacto set-value ""))
-           ((not (eqv? comboGenero "")) (send comboGenero set-value ""))))
+        (begin
+           (if (not (eqv? txtRegistroCivil2 "")) (send txtRegistroCivil2 set-value "") (void))
+           (if (not (eqv? txtNombresApellidos "")) (send txtNombresApellidos set-value "") #f)
+           (if (not (eqv? txtFechaNacimiento "")) (send txtFechaNacimiento set-value "") #f)
+           (if (not (eqv? txtNombreContacto "")) (send txtNombreContacto set-value "") #f)
+           (if (not (eqv? txtTelefonoContacto "")) (send txtTelefonoContacto set-value "") #f)
+           (if (not (eqv? txtDireccionContacto "")) (send txtDireccionContacto set-value "") #f)))
             
-
-(send registro-menor-frame show #t)
+(define (mostrarRegistrarMenor regCivil)
+ ( if (send txtRegistroCivil2 set-value regCivil) (send registro-menor-frame show #t) #f))
+  
+; (mostrarRegistrarMenor "123")
+; (obtener-calendario "2018-06-20")
