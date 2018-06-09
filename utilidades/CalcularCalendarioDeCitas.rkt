@@ -64,12 +64,20 @@
 
 ; (define (obtener-calendario mes anio)(reverse (calc-calendario mes anio)))
 (define (obtener-calendario fecha)
+ (map (lambda (x) (string-join (map ~a (reverse x)) "-"))  
+  (obtener-calendario-fecha fecha)))
+
+(define (obtener-calendario-fecha fecha)
  (reverse (calc-calendario (obtener-mes fecha) (obtener-anio fecha))))
 
 (define (obtener-anio fecha)
  (string->number (list-ref (string-split fecha "-") 0)))
 (define (obtener-mes fecha)
  (string->number (list-ref (string-split fecha "-") 1)))
-; (obtener-calendario "2018-02-20")
-; (obtener-anio "2018-02-20")
-; (string-split "foo-bar-baz" "-")
+
+
+;; slightly harder
+; (string-join (map ~a '(2018 06 13)) "-")
+; (string-join (map ~a '(2018 06 13)) "-")
+; (~a  "2018" "6" "12")
+; (obtener-calendario "2016-02-20")

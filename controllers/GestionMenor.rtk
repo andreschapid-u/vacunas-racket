@@ -5,12 +5,6 @@
 
 (provide obtieneDatosMenor)
 
-;Insertar datos a la galeria
-
-#| 1. Obtiene el id de la Galeria
-   2. Obtiene el id de la fruta
-   3. Insertarmos los datos obtenidos a la Tabla DATOSGAL. |#
-
 (define (obtieneDatosMenor 
             registroCivil 
             nombresApellidos 
@@ -67,5 +61,3 @@
 
 ; (query-rows conn "Select * from paciente")
 ; (query-rows conn "Select * from paciente")
-
-
