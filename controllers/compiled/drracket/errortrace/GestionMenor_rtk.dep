@@ -1,0 +1,1 @@
+("6.12" ("1d90035e5886d07c99a94527a068da6abb344c80" . "21b3af5ffc4e89b2e4d44339270ea37035697da7") #"E:\\gihub\\vacunas-racket\\controllers\\..\\Conexion.rtk" (collects #"db" #"main.rkt") (collects #"errortrace" #"errortrace-key.rkt") (collects #"racket" #"gui" #"base.rkt") (collects #"racket" #"main.rkt") (collects #"racket" #"runtime-config.rkt"))
