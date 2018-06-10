@@ -4,6 +4,7 @@
 (require db)
 
 (provide obtieneDatosMenor)
+(provide existe-registro)
 
 (define (obtieneDatosMenor 
             registroCivil 
@@ -44,7 +45,7 @@
     [(eqv? direccionContacto "") "Campo Dirección Contacto vacio"]
     [(eqv? genero "") "Campo Género vacio"]
     [(cond
-       [(not (equal? (query-maybe-row conn verificarRegistroCivil registroCivil) #f))  "El Registro Civil ya existe!"]
+       [(existe-registro registroCivil)  "El Registro Civil ya existe!"]
        [else    (query-exec conn insertarMenor 
                         registroCivil 
                         nombresApellidos 
@@ -56,7 +57,9 @@
                          
 ;   VERIFICAR SI EL REGISTRO CIVIL YA EXISTE
 (define verificarRegistroCivil (prepare conn "SELECT * FROM `paciente` WHERE `idRegistroCivil` = ?"))
-
+(define (existe-registro regCivil)
+  (not (equal? (query-maybe-row conn verificarRegistroCivil regCivil) #f))
+)
 ; (define consultarMenor (prepare conn "SELECT * FROM `paciente` WHERE `idRegistroCivil` = ?"))
 
 ; (query-rows conn "Select * from paciente")

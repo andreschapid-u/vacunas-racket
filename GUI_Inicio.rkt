@@ -1,6 +1,9 @@
 #lang racket
 (require racket/gui/base)
 (require "./views/GUI_RegistroMenor.rkt")
+(require "./views/GUI_ConsultaMenor.rtk")
+
+(require "./controllers/GestionMenor.rtk")
 ;Definimos el frame principal, inicio
 (define application-frame
   (new frame%
@@ -40,7 +43,9 @@
 (define btnConsultarCitas(new button%
                           (parent panel-principal)
                           (min-width 150)
-                          (label "Consultar Citas")))
+                          (label "Consultar Citas")
+                          (callback (lambda (button event)
+                                    (lanzar-consulta-menor (send txtRegistroCivil get-value))))))
 (define btnCitas(new button%
                         (parent panel-principal)
                         (min-width 150)
@@ -49,10 +54,30 @@
                         (parent panel-principal)
                         (min-width 150)
                         (label "Ver Reportes")))
+(define btnCerrar(new button%
+                        (parent panel-principal)
+                        (vert-margin 20)
+                        (min-width 150)
+                        (label "CERRAR")
+                        (callback (lambda (button event)
+                                    (send application-frame show #f)) )))
   
 
 (define (lanzar-registo regCivil)
- (mostrarRegistrarMenor regCivil))
+  (if (existe-registro regCivil)
+    (send msgRes set-label "Ya existe el regristro civil ingresado")
+    (mostrarRegistrarMenor regCivil)
+    )
+ )
+
+(define (lanzar-consulta-menor regCivil)
+ (if (existe-registro regCivil)
+    (mostrarConsultarMenor regCivil)
+    (send msgRes set-label "No existe el regristro civil ingresado")
+    )
+ )
+  
+  
  
 ; Mostramos el frameprincipal
 (send application-frame show #t)

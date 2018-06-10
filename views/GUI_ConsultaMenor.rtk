@@ -1,17 +1,18 @@
 #lang racket
 (require racket/gui/base)
+(require "../controllers/ConsutarMenor.rkt")
 
+(provide mostrarConsultarMenor)
 (define consultar-menor-frame
   (new frame%
     (label "Consulta Menor - VACUNAS RACKET")
     (width 600)
-    (height 400)))
+    (x 200)
+    (y 200)
+    (height 500)))
 
 (define grupoMenor (new group-box-panel%
                      (label "Datos del menor")
-                     (vert-margin 5)
-                     (horiz-margin 50)
-                     (min-height 50)
                      (parent consultar-menor-frame)))
 
 (define grupoCitas (new group-box-panel%
@@ -55,9 +56,12 @@
 (define tabla-citas (new list-box%
                      (parent grupoCitas)
                      (label "CITAS")
+                     (min-width 150)
+                     (min-height 270)
+                     (stretchable-width #t)
                      [choices (list)]
                      [style (list 'extended 'column-headers 'vertical-label)]
-                     (columns (list "Fecha" "Etapa"))))
+                     (columns (list "\t\t\tFecha\t\t\t" "\t\t\tEtapa\t\t\t"))))
 
 (define btnAtras (new button%
                         (parent consultar-menor-frame)
@@ -66,4 +70,19 @@
                         (callback (lambda (button event)
                                     (send  consultar-menor-frame show #f)))))                  
 
-(send consultar-menor-frame show #t )                
+(define (mostrarConsultarMenor regCivil)
+  (begin
+  (cargar_info_menor (listarDatosMenor regCivil))
+  (send tabla-citas set (listarTodasFechas regCivil) (listarTodasEtapas regCivil))
+  (send consultar-menor-frame show #t )
+  )
+)
+(define (cargar_info_menor datos)
+(begin
+  (send txtRegistroCivil set-value (~a (first  datos)))
+  (send txtNombresApellidos set-value (second datos))
+  (send txtFechaNaciminto set-value (third  datos))
+  (send txtGenero set-value (fourth datos))
+))
+; (send consultar-menor-frame show #t )
+               

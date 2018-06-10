@@ -20,7 +20,21 @@
                        (label "Registro de vacunación")
                        [choices (list)]
                        [style (list 'extended 'column-headers 'vertical-label)]
-                       (columns (list "Etapa" "Vacunas"))))                             
+                       (columns (list "Etapa" "Vacunas"))))  
+
+(define botonRegistrar (new button%
+                         (parent registro-vacunacion-frame)
+                         (enabled #t)
+                         (label "REGISTRAR")
+                         (callback (lambda (button event)
+                                     (void)))))
+
+(define botonCerrar (new button%
+                         (parent registro-vacunacion-frame)
+                         (enabled #t)
+                         (label "CERRAR")
+                         (callback (lambda (button event)
+                                     (send registro-vacunacion-frame show #f)))))                                   
 
 (send tabla-vacunas append "Dato 1")
 
