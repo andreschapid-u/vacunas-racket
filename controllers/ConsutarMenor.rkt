@@ -34,7 +34,7 @@ ORDER BY FECHA"))
 
 (define listarTodasEstadosQuery (prepare conn "SELECT pacienteetapa.ESTADO FROM `vacuna` INNER JOIN etapavacuna ON vacuna.IDVACUNA = etapavacuna.VAC_IDVACUNA INNER JOIN etapa ON etapa.IDETAPA = etapavacuna.IDETAPA INNER JOIN pacienteetapa ON pacienteetapa.IDETAPA = etapa.IDETAPA WHERE pacienteetapa.IDREGISTROCIVIL = ? ORDER BY pacienteetapa.FECHA" ))
 (define listarTodasVacunasQuery (prepare conn "SELECT vacuna.NOMBRE FROM `vacuna` INNER JOIN etapavacuna ON vacuna.IDVACUNA = etapavacuna.VAC_IDVACUNA INNER JOIN etapa ON etapa.IDETAPA = etapavacuna.IDETAPA INNER JOIN pacienteetapa ON pacienteetapa.IDETAPA = etapa.IDETAPA WHERE pacienteetapa.IDREGISTROCIVIL = ? ORDER BY pacienteetapa.FECHA"))
-(define listarTodasDiscrepanciasQuery (prepare conn "SELECT DATE_FORMAT(pacienteetapa.FECHA,'%d %m %Y') FROM pacienteetapa INNER JOIN paciente ON pacienteetapa.IDREGISTROCIVIL = paciente.IDREGISTROCIVIL INNER JOIN etapa ON etapa.IDETAPA = pacienteetapa.IDETAPA INNER JOIN etapavacuna ON etapa.IDETAPA = etapavacuna.IDETAPA INNER JOIN vacuna ON vacuna.IDVACUNA = etapa.IDETAPA
+(define listarTodasDiscrepanciasQuery (prepare conn "SELECT pacienteetapa.discrepancia FROM pacienteetapa INNER JOIN paciente ON pacienteetapa.IDREGISTROCIVIL = paciente.IDREGISTROCIVIL INNER JOIN etapa ON etapa.IDETAPA = pacienteetapa.IDETAPA INNER JOIN etapavacuna ON etapa.IDETAPA = etapavacuna.IDETAPA INNER JOIN vacuna ON vacuna.IDVACUNA = etapa.IDETAPA
 WHERE paciente.IDREGISTROCIVIL = ?
 ORDER BY FECHA"))
 
