@@ -7,9 +7,7 @@
 (define consultar-menor-frame
   (new frame%
     (label "Consulta Menor - VACUNAS RACKET")
-    (width 600)
-    (x 200)
-    (y 200)
+    (width 700)
     (height 500)))
 
 (define grupoMenor (new group-box-panel%
@@ -95,7 +93,7 @@
                      (stretchable-width #t)
                      [choices (list)]
                      [style (list 'extended 'column-headers 'vertical-label)]
-                     (columns (list "fecha Vacunacion" "Fecha Real Vacunacion" "Vacuna aplicada" "  Estado  "))))
+                     (columns (list "Fecha Vacunacion" "Fecha Real Vacunación" "\t\t\t\t\tVacuna aplicada\t\t\t\t\t\t\t\t\t\t\t\t" "  Estado \t\t\t\t\t\t\t"))))
 
 (define btnAtras (new button%
                         (parent consultar-menor-frame)
@@ -124,15 +122,18 @@
 
 (define (llenarDatosEtapa regCivil)
   (begin
-    (send txtIdEtapa set-value (
-      if (verificarEtapa regCivil)
-      (~a (second (listarDatoEtapaPendiente regCivil)))
-      (begin
-      "No aplica"
-      (send btnRegistroVacuna enable #f)
-      ) )
+    (send txtIdEtapa set-value 
+      (if (verificarEtapa regCivil)
+        (~a (second (listarDatoEtapaPendiente regCivil)))
+        "No aplica"
+          ; (send btnRegistroVacuna enable #f)
       )
-    
+    )
+    (if (verificarEtapa regCivil)
+      (send btnRegistroVacuna enable #t)
+      (send btnRegistroVacuna enable #f)
+    )
+  
   )
 )
 (define (registrarFecha regCivil idEtapa fecha)

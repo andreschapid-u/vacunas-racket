@@ -31,14 +31,8 @@
                      (stretchable-width #t)
                      [choices (list)]
                      [style (list 'extended 'column-headers 'vertical-label)]
-                     (columns (list "fecha Vacunacion" "Fecha Real Vacunacion" "Discrepancias"))))
+                     (columns (list "Fecha Vacunación" "Fecha Real Vacunacion" "Discrepancias\t\t\t\t\t\t\t"))))
 
-(define botonRegistrar (new button%
-                         (parent registro-vacunacion-frame)
-                         (enabled #t)
-                         (label "REGISTRAR")
-                         (callback (lambda (button event)
-                                     (void)))))
 
 (define botonCerrar (new button%
                          (parent registro-vacunacion-frame)
