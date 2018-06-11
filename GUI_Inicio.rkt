@@ -2,7 +2,7 @@
 (require racket/gui/base)
 (require "./views/GUI_RegistroMenor.rkt")
 (require "./views/GUI_ConsultaMenor.rtk")
-(require "./views/GUI_RegistroVacunacion.rkt")
+(require "./views/GUI_VerReportes.rkt")
 
 (require "./controllers/GestionMenor.rtk")
 ;Definimos el frame principal, inicio

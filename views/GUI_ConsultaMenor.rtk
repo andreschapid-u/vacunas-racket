@@ -1,6 +1,7 @@
 #lang racket
 (require racket/gui/base)
 (require "../controllers/ConsutarMenor.rkt")
+(require "../controllers/GestionMenor.rtk")
 
 (provide mostrarConsultarMenor)
 (define consultar-menor-frame
@@ -15,11 +16,44 @@
                      (label "Datos del menor")
                      (parent consultar-menor-frame)))
 
+(define grupoCitasPendientes (new group-box-panel%
+                     (label "Cita pendiente")
+                     (vert-margin 5)
+                     (horiz-margin 50)
+                     (parent consultar-menor-frame)))
+
 (define grupoCitas (new group-box-panel%
                      (label "")
                      (vert-margin 5)
                      (horiz-margin 50)
                      (parent consultar-menor-frame)))
+
+(define txtIdEtapa (new text-field% 
+                          (parent grupoCitasPendientes)
+                          (vert-margin 10)
+                          (enabled #f)
+                          (horiz-margin 50)
+                          (min-height 10)
+                          (min-width 150)
+                          (label "Etapa")))
+
+(define txtFechaVacunacion (new text-field% 
+                          (parent grupoCitasPendientes)
+                          (vert-margin 10)
+                          (horiz-margin 50)
+                          (min-height 10)
+                          (min-width 150)
+                          (label "Fecha de Vacunación")))
+
+(define btnRegistroVacuna (new button%
+                        (parent grupoCitasPendientes)
+                        (enabled #t)
+                        (label "REGISTRAR")
+                        (callback (lambda (button event)
+                                    (registrarFecha (send txtRegistroCivil get-value) (send txtIdEtapa get-value) (send txtFechaVacunacion get-value)
+                                    )
+                                  )
+))) 
 
 (define txtRegistroCivil (new text-field%
                           (parent grupoMenor)
@@ -74,6 +108,9 @@
   (begin
   (cargar_info_menor (listarDatosMenor regCivil))
   (send tabla-citas set (listarTodasFechas regCivil) (listarTodasFechasReales regCivil) (listarTodasVacunas regCivil) (listarTodasEstados regCivil))
+  ; (first (listarTodasEstados regCivil))
+  (llenarDatosEtapa regCivil)
+    ; ( (listarDatoEtapaPendiente regCivil))
   (send consultar-menor-frame show #t )
   )
 )
@@ -84,5 +121,23 @@
   (send txtFechaNaciminto set-value (third  datos))
   (send txtGenero set-value (fourth datos))
 ))
+
+(define (llenarDatosEtapa regCivil)
+  (begin
+    (send txtIdEtapa set-value (
+      if (verificarEtapa regCivil) 
+      (~a (second (listarDatoEtapaPendiente regCivil)))
+      "No aplica")
+      )
+    (send btnRegistroVacuna enable #f)
+  )
+)
+(define (registrarFecha regCivil idEtapa fecha)
+  (begin 
+    (registrarVacunacion regCivil idEtapa fecha)
+    (llenarDatosEtapa regCivil)
+    (send tabla-citas set (listarTodasFechas regCivil) (listarTodasFechasReales regCivil) (listarTodasVacunas regCivil) (listarTodasEstados regCivil))
+  )
+)
 ; (send consultar-menor-frame show #t )
                

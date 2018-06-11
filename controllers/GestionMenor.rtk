@@ -7,6 +7,7 @@
 
 (provide obtieneDatosMenor)
 (provide existe-registro)
+(provide registrarVacunacion)
 
 (define (obtieneDatosMenor 
             registroCivil 
@@ -101,12 +102,23 @@
                         )
 )
 
+(define (registrarVacunacion regCivil idEtapa fecha)
+(begin
+  (query-exec conn registrarFechaVacunacion fecha regCivil idEtapa)
+  (query-exec conn actualizarDiscrepancias)
+  #t
+))
+
 
 (define insertarCalendarioMenor (
                        prepare conn "INSERT INTO `pacienteetapa`(`IDETAPA`, `IDREGISTROCIVIL`, `FECHA`, `FECHAVACUNACION`) VALUES (?,?,?,?)"))
+
+(define registrarFechaVacunacion (
+                       prepare conn "UPDATE `pacienteetapa` SET `FECHAVACUNACION`= ?, `ESTADO`='Aplicada' WHERE pacienteetapa.IDREGISTROCIVIL = ? and pacienteetapa.IDETAPA = ?"))
+(define actualizarDiscrepancias (
+                       prepare conn "UPDATE `pacienteetapa` SET `discrepancia`= 'Discrepancia' WHERE `FECHA` <>`FECHAVACUNACION`"))
+              
 ; (define consultarMenor (prepare conn "SELECT * FROM `paciente` WHERE `idRegistroCivil` = ?"))
 
 ; (query-rows conn "Select * from paciente")
 ; (query-rows conn "Select * from paciente")
-
-
