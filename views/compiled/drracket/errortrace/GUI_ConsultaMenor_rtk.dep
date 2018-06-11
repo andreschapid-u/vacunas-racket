@@ -1,0 +1,1 @@
+("6.12" ("14793d47f5e9c2ab9c82cbab53bc3a5438522e0b" . "1681925fecb7ebe5cd14b5ed8548d2cc633a1174") #"E:\\gihub\\vacunas-racket\\views\\..\\controllers\\ConsutarMenor.rkt" (collects #"errortrace" #"errortrace-key.rkt") (collects #"racket" #"gui" #"base.rkt") (collects #"racket" #"main.rkt") (collects #"racket" #"runtime-config.rkt"))

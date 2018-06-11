@@ -61,7 +61,7 @@
                      (stretchable-width #t)
                      [choices (list)]
                      [style (list 'extended 'column-headers 'vertical-label)]
-                     (columns (list "fecha Vacunacion" "Fecha Real Vacunacion" "Vacuna aplicada" "  Estado  "))))
+                     (columns (list "\t\t\tFecha\t\t\t" "\t\t\tEtapa\t\t\t"))))
 
 (define btnAtras (new button%
                         (parent consultar-menor-frame)
@@ -73,7 +73,7 @@
 (define (mostrarConsultarMenor regCivil)
   (begin
   (cargar_info_menor (listarDatosMenor regCivil))
-  (send tabla-citas set (listarTodasFechas regCivil) (listarTodasFechasReales regCivil) (listarTodasVacunas regCivil) (listarTodasEstados regCivil))
+  (send tabla-citas set (listarTodasFechas regCivil) (listarTodasEtapas regCivil))
   (send consultar-menor-frame show #t )
   )
 )

@@ -2,6 +2,7 @@
 (require racket/gui/base)
 (require "./views/GUI_RegistroMenor.rkt")
 (require "./views/GUI_ConsultaMenor.rtk")
+(require "./views/GUI_RegistroVacunacion.rkt")
 
 (require "./controllers/GestionMenor.rtk")
 ;Definimos el frame principal, inicio
@@ -49,7 +50,9 @@
 (define btnCitas(new button%
                         (parent panel-principal)
                         (min-width 150)
-                        (label "Registrar Vacuna")))
+                        (label "Registrar Vacuna")
+                         (callback (lambda (button event)
+                                    (lanzar-registro-vacunas (send txtRegistroCivil get-value))))))
 (define btnVerReportes(new button%
                         (parent panel-principal)
                         (min-width 150)
@@ -76,6 +79,14 @@
     (send msgRes set-label "No existe el regristro civil ingresado")
     )
  )
+
+(define (lanzar-registro-vacunas regCivil)
+ (if (existe-registro regCivil)
+    (mostrarCitas regCivil)
+    (send msgRes set-label "No existe el regristro civil ingresado")
+    )
+ )
+ 
   
   
  

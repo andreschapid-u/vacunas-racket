@@ -99,7 +99,8 @@
                         (enabled #t)
                         (label "REGISTRAR")
                         (callback (lambda (button event)
-                                    (send msgRes set-label (
+                                    (begin 
+                                      (send msgRes set-label (
                                                             obtieneDatosMenor 
                                                             (send txtRegistroCivil2 get-value)
                                                             (send txtNombresApellidos get-value)
@@ -107,29 +108,31 @@
                                                             (send radioGenero get-item-label (send radioGenero get-selection))
                                                             (send txtNombreContacto get-value)
                                                             (send txtTelefonoContacto get-value)
-                                                            (send txtDireccionContacto get-value)))))))
+                                                            (send txtDireccionContacto get-value)))
+                                      (limpiarCampos)
+                                                            )))))
                         
 
+; (define btnLimpiarCampos(new button%
+;                          (parent panelBotones)
+;                          (enabled #t)
+;                          (label "LIMPIAR CAMPOS")
+;                          (callback (lambda (button event)
+;                                      (limpiarCampos txtRegistroCivil2
+;                                       txtNombresApellidos
+;                                       txtFechaNacimiento
+;                                       txtNombreContacto
+;                                       txtTelefonoContacto
+;                                       txtDireccionContacto)))))
 (define btnLimpiarCampos(new button%
                          (parent panelBotones)
                          (enabled #t)
                          (label "LIMPIAR CAMPOS")
                          (callback (lambda (button event)
-                                     (limpiarCampos txtRegistroCivil2
-                                      txtNombresApellidos
-                                      txtFechaNacimiento
-                                      txtNombreContacto
-                                      txtTelefonoContacto
-                                      txtDireccionContacto)))))
+                                     (limpiarCampos )))))
                         
 
-(define (limpiarCampos
-         txtRegistroCivil2
-         txtNombresApellidos
-         txtFechaNacimiento
-         txtNombreContacto
-         txtTelefonoContacto
-         txtDireccionContacto)
+(define (limpiarCampos)
         (begin
            (if (not (eqv? txtRegistroCivil2 "")) (send txtRegistroCivil2 set-value "") (void))
            (if (not (eqv? txtNombresApellidos "")) (send txtNombresApellidos set-value "") #f)
