@@ -3,6 +3,8 @@
 (require "../Conexion.rtk")
 (require db)
 
+(require "../utilidades/CalcularCalendarioDeCitas.rkt")
+
 (provide obtieneDatosMenor)
 (provide existe-registro)
 
@@ -46,7 +48,7 @@
     [(eqv? genero "") "Campo Género vacio"]
     [(cond
        [(existe-registro registroCivil)  "El Registro Civil ya existe!"]
-       [else    (query-exec conn insertarMenor 
+       [else    (registrar-datos-menor 
                         registroCivil 
                         nombresApellidos 
                         fechaNacimiento 
@@ -60,7 +62,51 @@
 (define (existe-registro regCivil)
   (not (equal? (query-maybe-row conn verificarRegistroCivil regCivil) #f))
 )
+
+(define (registrar-calendario-menor registroCivil calendario)
+  (if (= (length calendario) 8)
+    (registrar-calendario-menor-lista registroCivil calendario (range 1 9))
+    (registrar-calendario-menor-lista registroCivil calendario (range 9 12))
+  )
+)
+
+(define (registrar-calendario-menor-lista registroCivil calendario listIdEtapas)
+(
+  if (not (null? calendario))
+    (begin
+      ; (display (listIdEtapas))
+      (query-exec conn insertarCalendarioMenor (car listIdEtapas) registroCivil (car calendario) (car calendario))
+      (registrar-calendario-menor-lista registroCivil (cdr calendario) (cdr listIdEtapas))
+    )
+    "Fin ejecucion"
+  )
+)
+(define (registrar-datos-menor registroCivil 
+                        nombresApellidos 
+                        fechaNacimiento 
+                        nombreContacto 
+                        telefonoContacto 
+                        direccionContacto
+                        genero )
+(begin 
+  (query-exec conn insertarMenor 
+                        registroCivil 
+                        nombresApellidos 
+                        fechaNacimiento 
+                        nombreContacto 
+                        telefonoContacto 
+                        direccionContacto
+                        genero)
+  (registrar-calendario-menor registroCivil (obtener-calendario fechaNacimiento))
+                        )
+)
+
+
+(define insertarCalendarioMenor (
+                       prepare conn "INSERT INTO `pacienteetapa`(`IDETAPA`, `IDREGISTROCIVIL`, `FECHA`, `FECHAVACUNACION`) VALUES (?,?,?,?)"))
 ; (define consultarMenor (prepare conn "SELECT * FROM `paciente` WHERE `idRegistroCivil` = ?"))
 
 ; (query-rows conn "Select * from paciente")
 ; (query-rows conn "Select * from paciente")
+
+
