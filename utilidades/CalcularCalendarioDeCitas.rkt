@@ -1,4 +1,4 @@
-#lang racket
+#lang racket ;Carlos Chapid - Edinson Hidalgo - Rene Jalvin
 ;Estas funciones permiten sacar la fecha (dia-mes-anio) actual
 ;(let ((date (seconds->date (current-seconds))))
 ;  (display (date-day date)))

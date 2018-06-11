@@ -1,4 +1,4 @@
-#lang racket
+#lang racket ;Carlos Chapid - Edinson Hidalgo - Rene Jalvin
 (require racket/gui/base)
 (require "../Conexion.rtk")
 (require "../utilidades/CalcularCalendarioDeCitas.rkt")

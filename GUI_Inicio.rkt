@@ -1,4 +1,4 @@
-#lang racket
+#lang racket ;Carlos Chapid - Edinson Hidalgo - Rene Jalvin
 (require racket/gui/base)
 (require "./views/GUI_RegistroMenor.rkt")
 (require "./views/GUI_ConsultaMenor.rtk")
