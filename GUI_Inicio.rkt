@@ -47,16 +47,13 @@
                           (label "Consultar Citas")
                           (callback (lambda (button event)
                                     (lanzar-consulta-menor (send txtRegistroCivil get-value))))))
-(define btnCitas(new button%
-                        (parent panel-principal)
-                        (min-width 150)
-                        (label "Registrar Vacuna")
-                         (callback (lambda (button event)
-                                    (lanzar-registro-vacunas (send txtRegistroCivil get-value))))))
+
 (define btnVerReportes(new button%
                         (parent panel-principal)
                         (min-width 150)
-                        (label "Ver Reportes")))
+                        (label "Ver Reportes")
+                        (callback (lambda (button event)
+                                    (lanzar-Reportes(send txtRegistroCivil get-value))))))
 (define btnCerrar(new button%
                         (parent panel-principal)
                         (vert-margin 20)
@@ -80,9 +77,9 @@
     )
  )
 
-(define (lanzar-registro-vacunas regCivil)
+(define (lanzar-Reportes regCivil)
  (if (existe-registro regCivil)
-    (mostrarCitas regCivil)
+    (verReportes regCivil)
     (send msgRes set-label "No existe el regristro civil ingresado")
     )
  )

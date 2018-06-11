@@ -125,11 +125,14 @@
 (define (llenarDatosEtapa regCivil)
   (begin
     (send txtIdEtapa set-value (
-      if (verificarEtapa regCivil) 
+      if (verificarEtapa regCivil)
       (~a (second (listarDatoEtapaPendiente regCivil)))
-      "No aplica")
+      (begin
+      "No aplica"
+      (send btnRegistroVacuna enable #f)
+      ) )
       )
-    (send btnRegistroVacuna enable #f)
+    
   )
 )
 (define (registrarFecha regCivil idEtapa fecha)

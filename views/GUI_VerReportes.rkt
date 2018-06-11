@@ -2,20 +2,20 @@
 (require racket/gui/base)
 (require "../controllers/ConsutarMenor.rkt")
 
-(provide mostrarCitas)
+(provide verReportes)
 (define registro-vacunacion-frame
   (new frame%
     (label "Registro de Vacunacion - VACUNAS RACKET")
     (width 600)
     (height 400)))
 
-(define txtFechaNaciminto (new text-field%
-                             (parent registro-vacunacion-frame)
-                             (vert-margin 10)
-                             (horiz-margin 50)
-                             (min-height 10)
-                             (min-width 150)
-                             (label "Fecha nacimiento")))
+; (define txtFechaNaciminto (new text-field%
+;                              (parent registro-vacunacion-frame)
+;                              (vert-margin 10)
+;                              (horiz-margin 50)
+;                              (min-height 10)
+;                              (min-width 150)
+;                              (label "Fecha nacimiento")))
 
 ; (define tabla-vacunas (new list-box%
 ;                        (parent registro-vacunacion-frame)
@@ -31,7 +31,7 @@
                      (stretchable-width #t)
                      [choices (list)]
                      [style (list 'extended 'column-headers 'vertical-label)]
-                     (columns (list "fecha Vacunacion" "Fecha Real Vacunacion" "Vacuna aplicada" "  Estado  "))))
+                     (columns (list "fecha Vacunacion" "Fecha Real Vacunacion" "Discrepancias"))))
 
 (define botonRegistrar (new button%
                          (parent registro-vacunacion-frame)
@@ -49,9 +49,9 @@
 
 
 ; (send tabla-vacunas set-string 1 "Dato 1" 1)
-(define (mostrarCitas regCivil)
+(define (verReportes regCivil)
   (begin
-  (send tabla-citas set (listarTodasFechas regCivil) (listarTodasFechasReales regCivil) (listarTodasVacunas regCivil) (listarTodasEstados regCivil))
+    (send tabla-citas set (listarTodasFechas regCivil) (listarTodasFechasReales regCivil) (listarDiscrepancias regCivil))
     (send registro-vacunacion-frame show #t)
   )
 )

@@ -14,6 +14,7 @@
 (provide listarDatosMenor)
 (provide listarDatoEtapaPendiente)
 (provide verificarEtapa)
+(provide listarDiscrepancias)
 
 (define (listarTodasFechas regCivil) (query-list conn listarTodasFechasQuery regCivil))
 (define (listarTodasEtapas regCivil)(query-list conn listarTodasEtapasQuery regCivil))
@@ -23,6 +24,7 @@
 (define (listarDatosMenor regCivil)(vector->list (query-row conn listarMenorQuery regCivil)))
 (define (listarDatoEtapaPendiente regCivil)(vector->list (query-maybe-row conn listarEtapaPendiente regCivil)))
 
+(define (listarDiscrepancias regCivil)(query-list conn listarTodasDiscrepanciasQuery regCivil))
 ; (define getComunasSQL (query-list conn "SELECT com_nombre FROM COMUNAS"))
 ; (define getFrutasSQL (query-list conn "SELECT fru_nombre FROM FRUTAS"))
 ; (define getNutrientesSQL (query-list conn "SELECT nut_nombre FROM NUTRIENTES"))
@@ -38,7 +40,9 @@ ORDER BY FECHA"))
 
 (define listarTodasEstadosQuery (prepare conn "SELECT pacienteetapa.ESTADO FROM `vacuna` INNER JOIN etapavacuna ON vacuna.IDVACUNA = etapavacuna.VAC_IDVACUNA INNER JOIN etapa ON etapa.IDETAPA = etapavacuna.IDETAPA INNER JOIN pacienteetapa ON pacienteetapa.IDETAPA = etapa.IDETAPA WHERE pacienteetapa.IDREGISTROCIVIL = ? ORDER BY pacienteetapa.FECHA" ))
 (define listarTodasVacunasQuery (prepare conn "SELECT vacuna.NOMBRE FROM `vacuna` INNER JOIN etapavacuna ON vacuna.IDVACUNA = etapavacuna.VAC_IDVACUNA INNER JOIN etapa ON etapa.IDETAPA = etapavacuna.IDETAPA INNER JOIN pacienteetapa ON pacienteetapa.IDETAPA = etapa.IDETAPA WHERE pacienteetapa.IDREGISTROCIVIL = ? ORDER BY pacienteetapa.FECHA"))
-
+(define listarTodasDiscrepanciasQuery (prepare conn "SELECT pacienteetapa.discrepancia FROM pacienteetapa INNER JOIN paciente ON pacienteetapa.IDREGISTROCIVIL = paciente.IDREGISTROCIVIL INNER JOIN etapa ON etapa.IDETAPA = pacienteetapa.IDETAPA INNER JOIN etapavacuna ON etapa.IDETAPA = etapavacuna.IDETAPA INNER JOIN vacuna ON vacuna.IDVACUNA = etapa.IDETAPA
+WHERE paciente.IDREGISTROCIVIL = ?
+ORDER BY FECHA"))
 
 ; FORMAT(VALUE,'yyyy-MM-dd')
 
