@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-06-2018 a las 20:05:27
+-- Tiempo de generación: 11-06-2018 a las 22:59:09
 -- Versión del servidor: 10.1.32-MariaDB
 -- Versión de PHP: 7.2.5
 
@@ -148,22 +148,6 @@ CREATE TABLE `paciente` (
 --
 
 TRUNCATE TABLE `paciente`;
---
--- Volcado de datos para la tabla `paciente`
---
-
-INSERT INTO `paciente` (`IDREGISTROCIVIL`, `NOMBRESAPELLIDOS`, `FECHANACIMIENTO`, `NOMBRECONTACTO`, `TELEFONOCONTACTO`, `DIRECCION`, `GENERO`) VALUES
-(123, 'carlos realpe', '2018-06-14', 'maria lopez', '214554', 'centro', 'm'),
-(124, 'pedro sanches', '2018-05-14', 'carmen chantre', '214dad4', 'cali', 'm'),
-(125, 'julian topa', '2018-07-16', 'sandra topa', '214554', 'centro', 'm'),
-(126, 'nathalia velasco', '2018-01-01', 'eujenia bravo', '2145245', 'piendamo', 'm'),
-(127, 'maricela narvaez', '2018-09-17', 'marta narvaez', '21454354', 'bogota', 'f'),
-(130, 'Carlos Chapid', '2018-05-20', 'Carlos', '123456789', 'qwertyuio', 'Mascu'),
-(200, 'Juana', '2017-06-01', 'wertyu', '123456789', 'asdfghjk', 'Femenino'),
-(201, 'juan', '2018-06-10', '12345', '123456', '12345678', 'Masculino'),
-(202, 'Prueba', '2016-01-01', '1234567', '1234567', '234567', 'Masculino'),
-(1111, 'rene jalvinr', '0001-12-17', 'marino', '345654', 'playa', 'Mascu');
-
 -- --------------------------------------------------------
 
 --
@@ -185,37 +169,6 @@ CREATE TABLE `pacienteetapa` (
 --
 
 TRUNCATE TABLE `pacienteetapa`;
---
--- Volcado de datos para la tabla `pacienteetapa`
---
-
-INSERT INTO `pacienteetapa` (`IDETAPA`, `IDREGISTROCIVIL`, `FECHA`, `FECHAVACUNACION`, `ESTADO`, `discrepancia`) VALUES
-(1, 130, '2018-06-11', '2018-06-12', 'No aplicada', 'Discrepancia'),
-(1, 201, '2018-06-11', '2018-06-11', 'No aplicada', 'No discrepancia'),
-(2, 130, '2018-08-11', '2018-08-11', 'No aplicada', 'No discrepancia'),
-(2, 201, '2018-08-11', '2018-08-11', 'No aplicada', 'No discrepancia'),
-(3, 130, '2018-10-11', '2018-10-11', 'No aplicada', 'No discrepancia'),
-(3, 201, '2018-10-11', '2018-10-11', 'No aplicada', 'No discrepancia'),
-(4, 130, '2018-12-11', '2018-12-11', 'No aplicada', 'No discrepancia'),
-(4, 201, '2018-12-11', '2018-12-11', 'No aplicada', 'No discrepancia'),
-(5, 130, '2019-01-11', '2019-01-11', 'No aplicada', 'No discrepancia'),
-(5, 201, '2019-01-11', '2019-01-11', 'No aplicada', 'No discrepancia'),
-(6, 130, '2019-06-11', '2019-06-11', 'No aplicada', 'No discrepancia'),
-(6, 201, '2019-06-11', '2019-06-11', 'No aplicada', 'No discrepancia'),
-(7, 130, '2019-12-11', '2019-12-11', 'No aplicada', 'No discrepancia'),
-(7, 201, '2019-12-11', '2019-12-11', 'No aplicada', 'No discrepancia'),
-(8, 130, '2023-06-11', '2023-06-11', 'No aplicada', 'No discrepancia'),
-(8, 201, '2023-06-11', '2023-06-11', 'No aplicada', 'No discrepancia'),
-(9, 126, '2018-06-11', '2018-06-11', 'No aplicada', 'No discrepancia'),
-(9, 200, '2018-06-11', '2018-06-11', 'No aplicada', 'No discrepancia'),
-(9, 202, '2018-06-11', '2018-06-11', 'No aplicada', 'No discrepancia'),
-(10, 126, '2018-07-11', '2018-07-11', 'No aplicada', 'No discrepancia'),
-(10, 200, '2018-07-11', '2018-07-11', 'No aplicada', 'No discrepancia'),
-(10, 202, '2018-07-11', '2018-07-11', 'No aplicada', 'No discrepancia'),
-(11, 126, '2018-08-11', '2018-08-11', 'No aplicada', 'No discrepancia'),
-(11, 200, '2018-08-11', '2018-08-11', 'No aplicada', 'No discrepancia'),
-(11, 202, '2018-08-11', '2018-08-11', 'No aplicada', 'No discrepancia');
-
 -- --------------------------------------------------------
 
 --
