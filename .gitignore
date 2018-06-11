@@ -4,3 +4,5 @@
 b.rkt
 ejemplo.rkt
 *.svg
+*.dep
+*.zo
