@@ -1,0 +1,6 @@
+*.bak
+**compiled
+*.pdf
+b.rkt
+ejemplo.rkt
+*.svg
