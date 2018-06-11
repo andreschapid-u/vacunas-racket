@@ -6,3 +6,4 @@ ejemplo.rkt
 *.svg
 *.dep
 *.zo
+.vscode
