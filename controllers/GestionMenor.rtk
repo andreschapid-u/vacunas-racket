@@ -1,6 +1,8 @@
 #lang racket ;Carlos Chapid - Edinson Hidalgo - Rene Jalvin
 (require racket/gui/base)
 (require "../Conexion.rtk")
+(require "../controllers/ConsutarMenor.rkt")
+
 (require db)
 
 (require "../utilidades/CalcularCalendarioDeCitas.rkt")
@@ -89,17 +91,22 @@
                         telefonoContacto 
                         direccionContacto
                         genero )
-(begin 
-  (query-exec conn insertarMenor 
-                        registroCivil 
-                        nombresApellidos 
-                        fechaNacimiento 
-                        nombreContacto 
-                        telefonoContacto 
-                        direccionContacto
-                        genero)
-  (registrar-calendario-menor registroCivil (obtener-calendario fechaNacimiento))
-                        )
+  (begin 
+    (query-exec conn insertarMenor 
+                          registroCivil 
+                          nombresApellidos 
+                          fechaNacimiento 
+                          nombreContacto 
+                          telefonoContacto 
+                          direccionContacto
+                          genero)
+    (registrar-calendario-menor registroCivil (obtener-calendario fechaNacimiento))
+    (if (verificarEtapa registroCivil)
+      (registrarVacunacion registroCivil (~a (second (listarDatoEtapaPendiente registroCivil))) (first (listarDatoEtapaPendiente registroCivil)))
+      #f
+    )
+
+  )
 )
 
 (define (registrarVacunacion regCivil idEtapa fecha)

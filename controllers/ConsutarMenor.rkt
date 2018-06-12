@@ -49,7 +49,7 @@ ORDER BY FECHA"))
 ;(define listarTodasEtapasQuery (prepare conn "SELECT etapa.NOMBRE from pacienteetapa inner join etapa ON pacienteetapa.IDETAPA = etapa.IDETAPA WHERE pacienteetapa.IDREGISTROCIVIL = ?  ORDER BY etapa.IDETAPA"))
 (define listarMenorQuery (prepare conn "SELECT IDREGISTROCIVIL, NOMBRESAPELLIDOS, DATE_FORMAT(FECHANACIMIENTO, '%Y-%m-%d'), GENERO, NOMBRECONTACTO, TELEFONOCONTACTO, DIRECCION, GENERO FROM bdvacunacion.paciente WHERE IDREGISTROCIVIL = ?  LIMIT 1"))
 
-(define listarEtapaPendiente (prepare conn "SELECT pacienteetapa.ESTADO, pacienteetapa.IDETAPA from pacienteetapa where pacienteetapa.IDREGISTROCIVIL = ? and pacienteetapa.ESTADO = 'No Aplicada' LIMIT 1"))
+(define listarEtapaPendiente (prepare conn "SELECT DATE_FORMAT(pacienteetapa.FECHA,'%Y-%m-%d'), pacienteetapa.IDETAPA from pacienteetapa where pacienteetapa.IDREGISTROCIVIL = ? and pacienteetapa.ESTADO = 'No Aplicada' LIMIT 1"))
 
 ; (listarDatosMenor 123)
 ; (first (listarDatosMenor 123))
